@@ -1,60 +1,49 @@
-Summary:	mozvoikko plugin for Mozilla-based applications
-Summary(pl.UTF-8):	Wtyczka mozvoikko dla aplikacji opartych na Mozilli
+# TODO: where noarch common mozilla extensions should go?
+Summary:	mozvoikko2 plugin for Mozilla-based applications
+Summary(pl.UTF-8):	Wtyczka mozvoikko2 dla aplikacji opartych na Mozilli
 Name:		browser-plugin-mozvoikko
-Version:	1.10.0
+Version:	2.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://downloads.sourceforge.net/voikko/mozvoikko-%{version}.tar.gz
-# Source0-md5:	2b88a22a740635760aadbcee7dc3d6ef
+# Source0-md5:	b9bb14bdea2977deeafad3c29f692ac6
 URL:		http://voikko.sourceforge.net/
-BuildRequires:	libstdc++-devel
-BuildRequires:	libvoikko-devel >= 1.7
-BuildRequires:	sed >=4.0
-BuildRequires:	xulrunner-devel >= 1.9
 BuildRequires:	zip
-Requires:	xulrunner >= 1.9
+Requires:	libvoikko >= 1.7
+Requires:	xulrunner >= 2.0
+#BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-mozvoikko plugin for Mozilla-based applications:
-- Firefox 3.0 or above
-- Thunderbird 3.0 or above
-- SeaMonkey 2.0 or above
+mozvoikko2 plugin for Mozilla-based applications:
+- Firefox 4.0 or above
+- Thunderbird 5.0 or above
+- SeaMonkey 2.2 or above
 
 %description -l pl.UTF-8
-Wtyczka mozvoikko dla aplikacji opartych na Mozilli. Obsługiwane są:
-- Firefox w wersji 3.0 lub nowszej
-- Thunderbird w wersji 3.0 lub nowszej
-- SeaMonkey w wersji 2.0 lub nowszej
+Wtyczka mozvoikko2 dla aplikacji opartych na Mozilli. Obsługiwane są:
+- Firefox w wersji 4.0 lub nowszej
+- Thunderbird w wersji 5.0 lub nowszej
+- SeaMonkey w wersji 2.2 lub nowszej
 
 %prep
 %setup -q -n mozvoikko-%{version}
 
-%{__sed} -i -e 's/libxul-unstable/libxul/' src/Makefile.xulrunner
-%{__sed} -i -e 's,^CC_LIBS.*,& -L%{_libdir}/xulrunner -lmozalloc,' src/Makefile.xulrunner
-
-%build
-%{__make} -f Makefile.xulrunner \
-	CC="%{__cxx} -c" \
-	CC_LINK="%{__cxx} -shared -Wl,--no-undefined" \
-	CFLAGS="%{rpmcxxflags}" \
-	XULRUNNER_SDK=%{_libdir}/xulrunner-sdk
-
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_browserpluginsdir}
+install -d $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/\{89630d4c-c64d-11e0-83d8-00508d9f364f\}
 
-%{__make} -f Makefile.xulrunner install-unpacked \
-	DESTDIR=$RPM_BUILD_ROOT%{_libdir}/mozilla/extensions
+cp -pr components chrome.manifest install.rdf $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/\{89630d4c-c64d-11e0-83d8-00508d9f364f\}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%dir %{_libdir}/mozilla/extensions/{b676e3ff-cda7-4e0c-b2b8-74e4bb40a67a}
-%dir %{_libdir}/mozilla/extensions/{b676e3ff-cda7-4e0c-b2b8-74e4bb40a67a}/components
-%attr(755,root,root) %{_libdir}/mozilla/extensions/{b676e3ff-cda7-4e0c-b2b8-74e4bb40a67a}/components/libmozvoikko.so
-%{_libdir}/mozilla/extensions/{b676e3ff-cda7-4e0c-b2b8-74e4bb40a67a}/chrome.manifest
-%{_libdir}/mozilla/extensions/{b676e3ff-cda7-4e0c-b2b8-74e4bb40a67a}/install.rdf
+%doc ChangeLog README
+%dir %{_libdir}/mozilla/extensions/{89630d4c-c64d-11e0-83d8-00508d9f364f}
+%dir %{_libdir}/mozilla/extensions/{89630d4c-c64d-11e0-83d8-00508d9f364f}/components
+%{_libdir}/mozilla/extensions/{89630d4c-c64d-11e0-83d8-00508d9f364f}/components/MozVoikko2.js
+%{_libdir}/mozilla/extensions/{89630d4c-c64d-11e0-83d8-00508d9f364f}/chrome.manifest
+%{_libdir}/mozilla/extensions/{89630d4c-c64d-11e0-83d8-00508d9f364f}/install.rdf
