@@ -2,12 +2,12 @@
 Summary:	mozvoikko2 plugin for Mozilla-based applications
 Summary(pl.UTF-8):	Wtyczka mozvoikko2 dla aplikacji opartych na Mozilli
 Name:		browser-plugin-mozvoikko
-Version:	2.0
+Version:	2.0.1
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://downloads.sourceforge.net/voikko/mozvoikko-%{version}.tar.gz
-# Source0-md5:	b9bb14bdea2977deeafad3c29f692ac6
+# Source0-md5:	8d3ded01a39f5c1a9c59b4c394c174ba
 URL:		http://voikko.sourceforge.net/
 BuildRequires:	zip
 Requires:	libvoikko >= 1.7
