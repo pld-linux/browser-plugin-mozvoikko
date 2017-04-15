@@ -2,15 +2,16 @@
 Summary:	mozvoikko2 plugin for Mozilla-based applications
 Summary(pl.UTF-8):	Wtyczka mozvoikko2 dla aplikacji opartych na Mozilli
 Name:		browser-plugin-mozvoikko
-Version:	2.0.1
-Release:	2
+Version:	2.2
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
-Source0:	http://downloads.sourceforge.net/voikko/mozvoikko-%{version}.tar.gz
-# Source0-md5:	8d3ded01a39f5c1a9c59b4c394c174ba
-URL:		http://voikko.sourceforge.net/
+#Source0Download: https://github.com/voikko/mozvoikko/releases
+Source0:	https://github.com/voikko/mozvoikko/archive/rel-%{version}/mozvoikko-%{version}.tar.gz
+# Source0-md5:	7c6d4bb09b60921c4c6a11fcc8d2bc9d
+URL:		http://voikko.puimula.org/
 BuildRequires:	zip
-Requires:	libvoikko >= 1.7
+Requires:	libvoikko >= 3.1
 #BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -27,7 +28,7 @@ Wtyczka mozvoikko2 dla aplikacji opartych na Mozilli. Obsługiwane są:
 - SeaMonkey w wersji 2.2 lub nowszej
 
 %prep
-%setup -q -n mozvoikko-%{version}
+%setup -q -n mozvoikko-rel-%{version}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -40,7 +41,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc ChangeLog README
+%doc ChangeLog README README.user
 %dir %{_libdir}/mozilla/extensions/{89630d4c-c64d-11e0-83d8-00508d9f364f}
 %dir %{_libdir}/mozilla/extensions/{89630d4c-c64d-11e0-83d8-00508d9f364f}/components
 %{_libdir}/mozilla/extensions/{89630d4c-c64d-11e0-83d8-00508d9f364f}/components/MozVoikko2.js
